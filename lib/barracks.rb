@@ -18,7 +18,7 @@ class Barracks
 	end
   
   def can_train_footman?
-    gold > 135 && food > 2
+    gold >= 135 && food >= 2
   end
 
   def train_peasant
@@ -32,7 +32,7 @@ class Barracks
   end
 
   def can_train_peasant?
-  	gold > 90 && food > 5
+  	gold >= 90 && food >= 5
   end
 
 end
