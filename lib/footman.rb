@@ -2,22 +2,11 @@
 
 class Footman
 
-
-	#attr_reader 
+	attr_accessor :health_points, :attack_power 
 
   def initialize
-  
-
+  	@health_points = 60
+  	@attack_power = 10
   end
-
-  def health_points
-  	health_points = 60
-  end
-
-  def attack_power
-  	attack_power = 10
-  end
-
-
 
 end
