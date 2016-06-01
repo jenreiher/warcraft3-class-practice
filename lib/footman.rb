@@ -1,12 +1,12 @@
 # http://classic.battle.net/war3/human/units/footman.shtml
+require_relative 'unit'
 
-class Footman
+class Footman < Unit
 
-	attr_accessor :health_points, :attack_power 
-
-  def initialize
+	 def initialize
   	@health_points = 60
   	@attack_power = 10
   end
+
 
 end
