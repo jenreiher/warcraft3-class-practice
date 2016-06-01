@@ -3,6 +3,8 @@ require_relative 'unit'
 
 class Footman < Unit
 
+	attr_accessor :health_points, :attack_power
+
 	def initialize
   	@health_points = 60
   	@attack_power = 10
@@ -13,7 +15,7 @@ class Footman < Unit
   end
 
   def attack!(enemy)
-  	enemy.damage
+  	enemy.damage(@attack_power)
   end
 
 
