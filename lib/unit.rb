@@ -12,8 +12,12 @@ class Unit
   end
 
   def attack!(enemy)
-  	if enemy.is_a?(Unit)
-  		enemy.damage(attack_power)
+  	if enemy.is_a?(Unit) && !dead?
+  		if !enemy.dead?
+        enemy.damage(attack_power)
+      else
+        false
+      end
 
     elsif enemy.is_a?(Barracks)
       rounded_half_damage = (attack_power / 2.0).ceil
@@ -24,7 +28,12 @@ class Unit
   end
 
   def dead?
-
+    if health_points <= 0
+      health_points = 0
+      return true
+    else
+      false
+    end
   end
 
 end

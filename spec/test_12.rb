@@ -26,17 +26,17 @@ describe Unit do
 
 	describe '#dead?' do
 		it "should return true if unit's life points are at 0" do
-			expect(@unit).to receive(:life_points) {0}
+			expect(@unit).to receive(:health_points) {0}
 			expect(@unit.dead?).to be_truthy
 		end
 
 		it "should return false if unit's life points are at 1" do
-			expect(@unit).to receive(:life_points) {1}
+			expect(@unit).to receive(:health_points) {1}
 			expect(@unit.dead?).to be_falsy
 		end
 
 		it "should return true if unit's life points are at -1" do
-			expect(@unit).to receive(:life_points) {-1}
+			expect(@unit).to receive(:health_points) {-1}
 			expect(@unit.dead?).to be_truthy
 		end
 
@@ -47,7 +47,7 @@ describe Unit do
 
 	describe '#attack!' do
 
-		it 'should not attack if it is dead' do
+		it 'should not attack another unit if it is dead' do
 			@fately_wounded = Unit.new(0,0)
 			expect(@unit.attack!(@fately_wounded)).to be_falsy
 
