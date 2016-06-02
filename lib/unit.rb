@@ -12,20 +12,37 @@ class Unit
   end
 
   def attack!(enemy)
-  	if enemy.is_a?(Unit) && !dead?
-  		if !enemy.dead?
-        enemy.damage(attack_power)
-      else
-        false
+    if !dead? 
+
+      if self.is_a?(SiegeEngine) 
+        if enemy.is_a?(Barracks)
+          doubled_damage = (attack_power * 2).ceil
+          return enemy.damage(doubled_damage)
+        end
+
+        if enemy.is_a?(SiegeEngine)
+          return enemy.damage(attack_power)
+        end
+        return false
       end
+    
 
-    elsif enemy.is_a?(Barracks)
-      rounded_half_damage = (attack_power / 2.0).ceil
-      enemy.damage(rounded_half_damage)
+      if self.is_a?(Unit)
+        if self.is_a?(Footman)
+          if enemy.is_a?(Barracks)
+            rounded_half_damage = (attack_power / 2.0).ceil
+            return enemy.damage(rounded_half_damage)
+          end
+        end
 
+        if enemy.is_a?(Unit) && !enemy.dead?
+          return enemy.damage(attack_power)
+        end
+      end
     end
-      
+
   end
+
 
   def dead?
     if health_points <= 0

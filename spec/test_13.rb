@@ -1,10 +1,13 @@
+require_relative 'spec_helper'
+
+
 #Introduce a SiegeEngine Unit.
 
 ########
 #Part 1#
 ########
 
-#SiegeEngines will require lumber when built by a Barracks. 
+#SiegeEngine will require lumber when built by a Barracks. 
 #Besides food and gold, Barracks therefore also need to have a lumber resource.
 
 #A Barracks starts off with 500 lumber.
@@ -19,14 +22,55 @@
 #So unlike with Footman (whose attacks do a fraction of the damage they normally would), 
 #a SiegeEngine does 2× damage against a Barracks.
 
-#Also, SiegeEngines can attack other SiegeEngines even though they cannot attack any other Units 
+#Also, SiegeEngine can attack other SiegeEngine even though they cannot attack any other Units 
 #(such as Peasants or Footmans.)
 
-#SiegeEngines are initialized with the following stats.
+#SiegeEngine are initialized with the following stats.
 #AP: 50
 #HP: 400
 #Cost: 200 gold, 60 lumber, 3 food
 #Make note, you will need to require the siege_engine.rb file in spec_helper.rb.
+
+
+
+describe SiegeEngine do
+
+	before :each do
+		@siege_engine = SiegeEngine.new
+	end
+
+	it "starts off with AP of 50" do
+		expect(@siege_engine.attack_power).to eq(50)
+	end
+
+	it "starts off with HP of 400" do
+		expect(@siege_engine.health_points).to eq(400)
+	end
+
+	describe '#attack!' do
+		it "should not attack other types of units" do
+			@testObj_footman = Footman.new
+			@testObj_peasant = Peasant.new
+      expect(@siege_engine.attack!(@testObj_footman)).to be_falsey
+      expect(@siege_engine.attack!(@testObj_peasant)).to be_falsey
+		end
+
+		it "should do two times as much damage against Barracks" do
+			barracks = Barracks.new
+
+      expect(@siege_engine.attack!(barracks)).to eq(400)
+		end
+
+		it "should do normal damage when attacking other SiegeEngine" do
+			under_seige = SiegeEngine.new
+			barracks = Barracks.new
+			
+      expect(@siege_engine.attack!(under_seige)).to eq(350)
+		end
+	end
+
+
+end
 
 describe Barracks do
 
@@ -38,46 +82,10 @@ describe Barracks do
     expect(@barracks.lumber).to eq(500)
   end
 
-end
-
-describe SiegeEngines do
-
-	before :each do
-		@siege_engines = SiegeEngines.new
-	end
-
-	it "starts off with AP of 50"
-		expect(@siege_engines.attack_points).to eq.(50)
-	end
-
-	it "starts off with HP of 400"
-		expect(@siege_engines.health_points).to eq.(500)
-	end
-
-	describe '#can_build_siege_engine?' do
-		it "returns true if there are enough resources to build a siege_engine"
+  describe '#can_build_siege_engine?' do
+		it "returns true if there are enough resources to build a siege_engine" do
 			expect(@barracks.can_build_siege_engine?).to be_truthy
 		end
 	end
-
-	describe '#attack!' do
-		it "should not attack other types of units"
-			@testObj_footman = Footman.new
-			@testObj_peasant = Peasants.new
-      expect(@siege_engines.attack!(@testObj_footman)).to be false
-      expect(@siege_engines.attack!(@testObj_peasant)).to be false
-		end
-
-		it "should do two times as much damage against Barracks"
-		  expect(attacker.attack!).to receive(:Barracks)
-      expect(attacker.attack_power). to eq(100)
-		end
-
-		it "should do normal damage when attacking other SiegeEngines"
-			expect(attacker.attack!).to receive(:SiegeEngines)
-      expect(attacker.attack_power). to eq(50)
-		end
-	end
-
 
 end

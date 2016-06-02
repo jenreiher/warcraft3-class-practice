@@ -20,9 +20,12 @@ describe Unit do
 
   describe "#attack!" do
     it "should deal the appropriate (attack power based) damage to the enemy unit" do
-      enemy_unit = Unit.new(40, 5)
-      expect(enemy_unit).to receive(:damage).with(3)
-      @unit.attack!(enemy_unit)
+
+      attacking_unit = Unit.new(40, 5)
+      barracks = Barracks.new
+
+      expect(barracks).to receive(:damage).with(3)
+      attacking_unit.attack!(barracks)
     end
   end
 
