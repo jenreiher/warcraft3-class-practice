@@ -28,7 +28,7 @@ class Unit
     
 
       if self.is_a?(Unit)
-        if self.is_a?(Footman)
+        if self.is_a?(Footman) || self.is_a?(Unit)
           if enemy.is_a?(Barracks)
             rounded_half_damage = (attack_power / 2.0).ceil
             return enemy.damage(rounded_half_damage)
